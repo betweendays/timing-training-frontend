@@ -1,0 +1,23 @@
+{{#section 'head'}}
+    <link rel="stylesheet" href="/css/signin.css">
+{{/section}}
+
+<div class="container">
+    <form class="form-signin" action="/register" method="POST">
+        <h2 class="form-signin-heading">Timing Training</h2>
+        <p class="form-signin-heading">Your personalized training.</p>
+        <input type="text" name="name" class="form-control" placeholder="name" required autofocus>
+        <input type="text" name="surname" class="form-control" placeholder="surname" required>
+        <input type="email" name="email" class="form-control" placeholder="email" required>
+        <input type="date" name="birthday" class="form-control" placeholder="birthday" required>
+
+        <select name="gender">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+
+        <input type="password" name="password" class="form-control" placeholder="password" required>
+        <input type="password" name="pwdcopied" class="form-control" placeholder="repeat password" required>
+        <button class="btn btn-lg btn-primary ddbtn-block" type="submit">Register</button>
+    </form>
+</div>
