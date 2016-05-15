@@ -1,0 +1,8 @@
+# ignore packages installed by npm
+node_modules
+
+# MAC specific files
+.DS_Store
+
+# backup files will be ignored even if they are in subdirectories.
+*~
