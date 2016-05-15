@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <title>Timing Training</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/bootstrap.css">
+    </head>
+    <body>
+    	<!-- HEADER SECTION -->
+		<!-- <header><img src="/img/logo.png" alt="Timing Training Logo"></header> -->
+		<!-- body container -->
+	    <div class="container">
+	    	<!-- flash messages -->
+			{{#if flash}}
+				<div class="alert alert-dismissible alert-{{flash.type}}">
+					<button type="button" class="close" 
+						data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>{{flash.intro}}</strong> {{{flash.message}}}
+				</div>
+			{{/if}}
+
+			<!-- BODY SECTION -->
+		    {{{body}}}
+			<hr>
+
+			<!-- FOOTER SECTION -->
+			<footer>
+				<p>&copy; Timing Training 2016</p>
+			</footer>
+	    </div>
+    </body>
+</html>

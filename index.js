@@ -3,21 +3,19 @@ var express = require('express');
 var app = express();
 
 // set up handlebars view engine
-var handlebars = require('express3-handlebars') .create({ defaultLayout:'main' });
+var handlebars = require('express-handlebars') .create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 // set server port
 app.set('port', process.env.PORT || 3000);
 
+// static directory
+app.use(express.static(__dirname + '/public'));
 
 /************************************* ROUTES ********************************************/
-app.get('/', function(req, res){ res.type('text/plain');
-            res.send('Meadowlark Travel');
-});
-app.get('/about', function(req, res){
-            res.type('text/plain');
-            res.send('About Meadowlark Travel');
+app.get('/', function(req, res){
+    res.render('cover');
 });
 
 // custom 404 page
