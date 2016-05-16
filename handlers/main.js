@@ -6,7 +6,6 @@ var request = require('request'),
 var BACK_END_SERVER_URL_BASE = 'http://localhost:9000';
 var PATH_REGISTER = '/register';
 var PATH_AUTHENTICATE = '/authenticate';
-
 /*********************************** PUBLIC METHODS **************************************/
 var cover = function(req, res){
 	res.render('cover');
@@ -26,8 +25,7 @@ var home = function(req, res) {
 
 var processLoginPost = function(req, res) {
 	if (!req.body){
-		console.error('Error:', err);
-		return res.send(err);
+		return handleErrorMessage('400', res);
 	}
 
 	var formData = {
@@ -42,27 +40,26 @@ var processLoginPost = function(req, res) {
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
 		if (err) {
-			console.error('Error:', err);
-			return res.send(err);
+			Session.clearUserToken(req);
+			return handleErrorMessage(body, res);
 		}
 
   		if (Response.responseHasErrors(body)) {
-  			return res.send(body);
+  			Session.clearUserToken(req);
+  			return handleErrorMessage(body, res);
   		}
 
-  		console.log('Login OK');
-
   		// store user token in session
-  		Session.storeUserToken(body);
-  		
-  		// redirect user to home page
+  		Session.storeUserToken(req, body);
+
+  		console.log('Login OK');
   		return home(req, res);
 	});
 };
 
 var processRegisterPost = function(req, res) {
 	if (!req.body){
-		return res.sendStatus(400);
+		handleErrorMessage('400', res);
 	}
 
 	var formData = {
@@ -82,18 +79,23 @@ var processRegisterPost = function(req, res) {
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
 		if (err) {
-			console.error('Error:', err);
-			return res.send(err);
+			return handleErrorMessage(err, res);
 		}
 
   		if (Response.responseHasErrors(body)) {
-  			return res.send(body);
+  			return handleErrorMessage(body, res);
   		}
 
   		console.log('Register OK');
   		return processLoginPost(req, res);
 	});
 };
+
+function handleErrorMessage(data, res) {
+	// TODO: handle error
+	console.error('Error:', data);
+	return res.send(data);
+}
 
 /*********************************** EXPORTS **************************************/
 exports.cover = cover;

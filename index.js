@@ -1,5 +1,6 @@
 var http = require('http'),
-    express = require('express');
+    express = require('express'),
+    credentials = require('./credentials.js');
 
 var app = express();
 
@@ -24,9 +25,12 @@ app.set('port', process.env.PORT || 3000);
 // static directory
 app.use(express.static(__dirname + '/public'));
 
+// middleware for cookies and sessions
+app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('express-session')());
+
 // add routes
 require('./routes.js')(app);
-
 /*********************************** ERROR HANDLERS **************************************/
 // custom 404 page
 app.use(function(req, res){
