@@ -1,11 +1,20 @@
+var moment = require('moment');
+
 exports.storeUserToken = function(req, data){
-	console.log('Save User Session');
+	console.log('Save User Session: ' + data.sessionId);
 	req.session.sessionId = data.sessionId;
-	req.session.expTime = data.expTime;
+	req.session.expires = data.expTime;
+};
+
+exports.getExpirationTime = function(req) {
+	return req.session.expires;
 };
 
 exports.clearUserToken = function(req) {
-	console.log('Clear User Session');
 	req.session.sessionId = '';
-	req.session.expTime = '';	
+	req.session.expires = '';	
+};
+
+exports.timeExpired = function(req) {
+	return moment().isAfter(req.session.expires);
 };

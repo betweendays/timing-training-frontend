@@ -1,11 +1,15 @@
+/******************************** GLOBAL VARIABLES ****************************************/
+
 var request = require('request'),
 	Response = require('./Response.js'),
 	Session = require('./Session.js');
 
-/*********************************** CONSTANTS **************************************/
+/*********************************** CONSTANTS *******************************************/
+
 var BACK_END_SERVER_URL_BASE = 'http://localhost:9000';
 var PATH_REGISTER = '/register';
 var PATH_AUTHENTICATE = '/authenticate';
+
 /*********************************** PUBLIC METHODS **************************************/
 var cover = function(req, res){
 	res.render('cover');
@@ -20,7 +24,10 @@ var register = function(req, res){
 };
 
 var home = function(req, res) {
-	res.render('home');
+	if (Session.timeExpired(req)) {
+		return handleErrorMessage('Token has expired. Log in again.', res);
+	}
+	return res.render('home');
 };
 
 var processLoginPost = function(req, res) {
@@ -28,14 +35,9 @@ var processLoginPost = function(req, res) {
 		return handleErrorMessage('400', res);
 	}
 
-	var formData = {
-		email: req.body.email,
-		password: req.body.password
-	};
-
 	var requestOptions = {
 		url: BACK_END_SERVER_URL_BASE + PATH_AUTHENTICATE,
-		formData: formData
+		formData: loginData(req)
 	};
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
@@ -49,8 +51,8 @@ var processLoginPost = function(req, res) {
   			return handleErrorMessage(body, res);
   		}
 
-  		// store user token in session
-  		Session.storeUserToken(req, body);
+  		var json = JSON.parse(body);
+  		Session.storeUserToken(req, json);
 
   		console.log('Login OK');
   		return home(req, res);
@@ -62,19 +64,9 @@ var processRegisterPost = function(req, res) {
 		handleErrorMessage('400', res);
 	}
 
-	var formData = {
-		name: req.body.name,
-		email: req.body.email,
-		password: req.body.password,
-		pwdcopied: req.body.pwdcopied,
-		surname: req.body.surname,
-		birthday: req.body.birthday,
-		gender: req.body.gender
-	};
-
 	var requestOptions = {
 		url: BACK_END_SERVER_URL_BASE + PATH_REGISTER,
-		formData: formData
+		formData: registerData(req)
 	};
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
@@ -91,12 +83,32 @@ var processRegisterPost = function(req, res) {
 	});
 };
 
+/*********************************** PRIVATE METHODS **************************************/
+
+function loginData(req) {
+	return {
+		email: req.body.email,
+		password: req.body.password
+	};
+}
+
+function registerData(req) {
+	return {
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password,
+		pwdcopied: req.body.pwdcopied,
+		surname: req.body.surname,
+		birthday: req.body.birthday,
+		gender: req.body.gender
+	};
+}
+
 function handleErrorMessage(data, res) {
 	// TODO: handle error
 	console.error('Error:', data);
 	return res.send(data);
 }
-
 /*********************************** EXPORTS **************************************/
 exports.cover = cover;
 exports.login = login;
