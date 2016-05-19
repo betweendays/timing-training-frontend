@@ -16,6 +16,9 @@ var cover = function(req, res){
 };
 
 var login = function(req, res){
+	if (!Session.timeExpired(req)) {
+		return res.redirect('/home');
+	}
 	res.render('login');
 };
 
@@ -23,14 +26,19 @@ var register = function(req, res){
 	res.render('register');
 };
 
+var logout = function(req, res) {
+	Session.clearUserToken(req);
+	res.redirect('/');
+};
+
 var home = function(req, res) {
 	if (Session.timeExpired(req)) {
-		return handleErrorMessage('Token has expired. Log in again.', res);
+		return res.redirect('/login');
 	}
 	return res.render('home');
 };
 
-var processLoginPost = function(req, res) {
+var processLoginPost = function(req, res, next) {
 	if (!req.body){
 		return handleErrorMessage('400', res);
 	}
@@ -55,7 +63,7 @@ var processLoginPost = function(req, res) {
   		Session.storeUserToken(req, json);
 
   		console.log('Login OK');
-  		return home(req, res);
+  		res.redirect('/home');
 	});
 };
 
@@ -116,3 +124,4 @@ exports.register = register;
 exports.processLoginPost = processLoginPost;
 exports.processRegisterPost = processRegisterPost;
 exports.home = home;
+exports.logout = logout;

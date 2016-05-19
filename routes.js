@@ -14,4 +14,6 @@ module.exports = function(app){
 	app.post('/login', urlencodedParser, main.processLoginPost);
 	app.get('/register', main.register);
 	app.post('/register', urlencodedParser, main.processRegisterPost);
+	app.get('/home', main.home);
+	app.get('/logout', main.logout);
 };
