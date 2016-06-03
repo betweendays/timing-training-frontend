@@ -1,0 +1,127 @@
+<!--@(cObjective: controllers.datastructure.criteria.objective.CriteriaObjective)-->
+
+<div class="panel panel-default" id="general" style="display: block;" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-heading">
+        <h3 class="panel-title">Please, select your main objective</h3>
+    </div>
+    <div class="panel-body">
+
+        <!-- Objectives List -->
+        <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" >
+            <ul class="list-group">
+                {{#each objectives}}
+                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{objective}}</a>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!--Back button-->
+    </br><p><a class="btn btn-primary" href="/home" " role="button">Back</a></p>
+    </div>
+</div>
+
+<div class="panel panel-default" id="specific" style="display: none;">
+    <div class="panel-heading">
+        <h3 class="panel-title">What's more important for you?</h3>
+    </div>
+    <div class="panel-body">
+
+        <!--Lose Weight Specific Div-->
+        <div id="spLose" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each wLose}}
+                    <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Tone Up Specific Div-->
+        <div id="spTone" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each toneUp}}
+                <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Shape Specific Div-->
+        <div id="spShape" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each betterShape}}
+                <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Improve Specific Div-->
+        <div id="spStrength" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each impStrength}}
+                <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Endurance Specific Div-->
+        <div id="spEndurance" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each impEndurance}}
+                <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Sports Specific Div-->
+        <div id="spSports" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each sport}}
+                <a class="list-group-item">{{option}}</a>
+            {{/each}}
+        </div>
+
+        <!--Back button-->
+        </br><p><a class="btn btn-primary" onclick="goBack();" role="button">Back</a></p>
+    </div>
+</div>
+
+<script>
+    var divGeneral = document.getElementById('general');
+    var divSpecific = document.getElementById('specific');
+    var divSpecific2 = divSpecific2 = document.getElementById('spLose');
+
+    function showSpecificData(index) {
+        var showOptions = true;
+
+        switch(index) {
+            case 0:
+                setDiv('spLose');
+                break;
+            case 1:
+                setDiv('spTone');
+                break;
+            case 2:
+                setDiv('spShape');
+                break;
+            case 3:
+                setDiv('spStrength');
+                break;
+            case 4:
+                setDiv('spEndurance');
+                break;
+            case 5:
+                showOptions = false;
+                break;
+            case 6:
+                setDiv('spSports');
+                break;
+            default:
+                // Do nothing.
+        }
+
+        if (showOptions) {
+            divGeneral.style.display = 'none';
+            divSpecific.style.display = 'block';
+        }
+    }
+
+    function setDiv(a) {
+        divSpecific2.style.display = 'none';
+        divSpecific2 = document.getElementById(a);
+        divSpecific2.style.display = 'block';
+    }
+
+    function goBack() {
+        divGeneral.style.display = 'block';
+        divSpecific.style.display = 'none';
+        divSpecific2.style.display = 'none';
+    }
+</script>
