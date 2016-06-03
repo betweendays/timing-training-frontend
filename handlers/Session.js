@@ -10,8 +10,7 @@ exports.getExpirationTime = function(req) {
 };
 
 exports.clearUserToken = function(req) {
-	req.session.sessionId = '';
-	req.session.expires = '';
+	req.session.destroy();
 };
 
 exports.timeExpired = function(req) {

@@ -1,0 +1,122 @@
+<!-- Navbar -->
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Timing Training</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+<!-- Three columns of text below the carousel -->
+<div class="container marketing">
+    <div class="row">
+        <!-- WELLNESS -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <h2>Wellness</h2>
+            <p>Health and Well-being<br>(36 programs)</p>
+            <p><a class="btn btn-default" id="well-btn" onclick="toggle_visibility(wellnessDetails, this);" role="button">More &raquo;</a></p>
+        </div>
+
+        <!-- FITNESS -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <h2>Fitness</h2>
+            <p>Be in a good shape and improve specific areas<br>(61 programs)</p>
+            <p><a class="btn btn-default" id="fit-btn" onclick="toggle_visibility(fitnessDetails, this);" role="button">More &raquo;</a></p>
+        </div>
+
+        <!-- SPORTS -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+            <h2>Sports</h2>
+            <p>Improve your performance related sport<br>(53 programs)</p>
+            <p><a class="btn btn-default" id="sports-btn" onclick="toggle_visibility(sportsDetails, this);" role="button">More &raquo;</a></p>
+        </div>
+    </div>
+
+    <!-- Wellness Details -->
+    <div id="wellnessDetails" class="row featurette" style="display: none;">
+        <div class="col-md-7">
+	        {{#each cWellness}}
+	        	<p>{{generalProgram}}</p>
+			{{/each}}
+        </div>
+    </div>
+
+    <!-- Fitness Details -->
+    <div id="fitnessDetails" class="row featurette" style="display: none;">
+        <div class="col-md-7">
+            {{#each cFitness}}
+	        	<p>{{generalProgram}}</p>
+			{{/each}}
+        </div>
+    </div>
+
+    <!-- Sports Details -->
+    <div id="sportsDetails" class="row featurette" style="display: none;">
+        <div class="col-md-7">
+            {{#each cSports}}
+	        	<p>{{generalProgram}}</p>
+			{{/each}}
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Don't know where to start from? <span class="text-muted">
+            <p><a class="btn btn-default" id="advise-btn" onclick="toggle_visibility(objectiveList, this);" role="button">Advise me.</a></p>
+        </div>
+    </div>
+
+    <!-- Objective List -->
+    <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+        <h3>Please, select your main criteria:</h3>
+        <ul class="list-group">
+            {{#each criterias}}
+        		{{!-- <a href="/trainingSetupCriteria/@criteria.getId" class="list-group-item" id="@criteria.getId">@criteria.getValue</a> --}}
+        		<a href="/trainingSetupCriteria/{{id}}">{{value}}</a>
+			{{/each}}
+
+			{{#each product.tags}}<a href="">{{this}}</a>, {{/each}}
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+   function toggle_visibility(divElement, btnElement) {
+        var div = document.getElementById(divElement.id);
+        var btn = document.getElementById(btnElement.id);
+
+        if (div.style.display == 'block') {
+            div.style.display = 'none';
+            btn.innerHTML = "More &raquo;";
+            console.log("none");
+        } else {
+            console.log("Block");
+            btn.innerHTML = "Less &raquo;";
+            div.style.display = 'block';
+        }
+   }
+</script>
+

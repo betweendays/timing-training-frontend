@@ -16,4 +16,5 @@ module.exports = function(app){
 	app.post('/register', urlencodedParser, main.processRegisterPost);
 	app.get('/home', main.home);
 	app.get('/logout', main.logout);
+	app.get('/trainingSetupCriteria/:id', main.trainingSetupCriteria);
 };
