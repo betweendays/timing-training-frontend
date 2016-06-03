@@ -94,11 +94,8 @@
         <h3>Please, select your main criteria:</h3>
         <ul class="list-group">
             {{#each criterias}}
-        		{{!-- <a href="/trainingSetupCriteria/@criteria.getId" class="list-group-item" id="@criteria.getId">@criteria.getValue</a> --}}
-        		<a href="/trainingSetupCriteria/{{id}}">{{value}}</a>
+        		<a class="list-group-item" href="/trainingSetupCriteria/{{id}}">{{value}}</a>
 			{{/each}}
-
-			{{#each product.tags}}<a href="">{{this}}</a>, {{/each}}
         </ul>
     </div>
 </div>
