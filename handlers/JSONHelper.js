@@ -86,6 +86,15 @@ var getActivityJson = function(data) {
 	};
 };
 
+var getSetUpTrainingJson = function(data) {
+	return {
+		criterias: data.criterias,
+		cWellness: data.categories[0].wellness,
+		cFitness: data.categories[1].fitness,
+		cSports: data.categories[2].sport
+	};
+};
+
 /*********************************** EXPORTS **************************************/
 
 exports.createJsonLogin = createJsonLogin;
@@ -95,3 +104,4 @@ exports.getAvailabilityJson = getAvailabilityJson;
 exports.getDurationJson = getDurationJson;
 exports.getMaterialJson = getMaterialJson;
 exports.getActivityJson = getActivityJson;
+exports.getSetUpTrainingJson = getSetUpTrainingJson;

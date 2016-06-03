@@ -4,6 +4,7 @@ var request = require('request'),
 	Response = require('./Response.js'),
 	JSONHelper = require('./JSONHelper.js'),
 	Session = require('./Session.js'),
+	Training = require('./TrainingSetUp.js'),
 	ViewDispatcher = require('./CriteriaViewDispatcher.js');
 
 /*********************************** CONSTANTS *******************************************/
@@ -98,71 +99,14 @@ var processRegisterPost = function(req, res) {
 
 var home = function(req, res) {
 	// TODO: retrieve user data from the backEnd. At the moment, is assumed that user has subscription and no trainings
+	var userHasNoTraining = true;
 	
-	var url = BACK_END_SERVER_URL_BASE + PATH_TRAINING_SET_UP + req.session.sessionId;
-	request.get(url, function optionalCallback(err, httpResponse, body) {
-		console.log('Response: ' + body);
+	if (userHasNoTraining) {
+		return Training.setUp(req, res);
+	}
 
-		if (err) {
-			console.log('Error Home Page: ' + err);
-			return handleErrorMessage(err, res);
-		}
-
-		var json;
-		try {
-			json = JSON.parse(body);
-		} catch(e) {
-			console.log(e);
-			return handleErrorMessage('Internal Error', res);
-		}
-
-		if (Response.responseHasErrors(json)) {
-			if (json.errorCode == 403) {
-				return res.redirect('/login');
-			}
-  			return handleErrorMessage(json.errorMsg, res);
-  		}
-
-		return res.render('setUpTraining', {
-			criterias: json.criterias,
-			cWellness: json.categories[0].wellness,
-			cFitness: json.categories[1].fitness,
-			cSports: json.categories[2].sport
-		});
-	});
-};
-
-var trainingSetupCriteria = function(req, res) {
-	// get criteriaId and sessionId
-	var id = req.params.id;
-	var sessionId = req.session.sessionId;
-
-	var url = BACK_END_SERVER_URL_BASE + PATH_TRAINING_SET_UP + PATH_GET_CRITERIA_OPTIONS + '/' + sessionId + '/' + id;
-	request.get(url, function optionalCallback(err, httpResponse, body) {
-		console.log('Response: ' + body);
-
-		if (err) {
-			console.log('Error Home Page: ' + err);
-			return handleErrorMessage(err, res);
-		}
-
-		var json;
-		try {
-			json = JSON.parse(body);
-		} catch(e) {
-			console.log(e);
-			return handleErrorMessage('Internal Error', res);
-		}
-
-		if (Response.responseHasErrors(json)) {
-			if (json.errorCode == 403) {
-				return res.redirect('/login');
-			}
-  			return handleErrorMessage(json.errorMsg, res);
-  		}
-
-  		return ViewDispatcher.dispatch(res, json);
-	});
+	// TODO: get user trainings and show home page
+	return res.render('home');
 };
 
 /*********************************** PRIVATE METHODS **************************************/

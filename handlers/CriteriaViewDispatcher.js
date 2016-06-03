@@ -15,15 +15,15 @@ var CRITERIA_ACTIVITY = 4;
 var dispatch = function(res, json) {
 	switch (json.criteria) {
 		case CRITERIA_OBJECTIVE:
-			return res.render('setUpTrainingObjective', JSONHelper.getObjectiveJson(json));
+			return res.render('setUpTraining/setUpTrainingObjective', JSONHelper.getObjectiveJson(json));
 		case CRITERIA_AVAILABILITY:
-			return res.render('setUpTrainingAvailability', JSONHelper.getAvailabilityJson(json));
+			return res.render('setUpTraining/setUpTrainingAvailability', JSONHelper.getAvailabilityJson(json));
 		case CRITERIA_DURATION:
-			return res.render('setUpTrainingDuration', JSONHelper.getDurationJson(json));
+			return res.render('setUpTraining/setUpTrainingDuration', JSONHelper.getDurationJson(json));
 		case CRITERIA_MATERIAL:
-			return res.render('setUpTrainingMaterial', JSONHelper.getMaterialJson(json));
+			return res.render('setUpTraining/setUpTrainingMaterial', JSONHelper.getMaterialJson(json));
 		case CRITERIA_ACTIVITY:
-			return res.render('setUpTrainingActivity', JSONHelper.getActivityJson(json));
+			return res.render('setUpTraining/setUpTrainingActivity', JSONHelper.getActivityJson(json));
 		default:
 			console.log('Criteria Unknown.');
 			return handleErrorMessage('Criteria Unknown', res);
