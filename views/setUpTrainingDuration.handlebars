@@ -20,7 +20,7 @@
 
 <div class="panel panel-default" id="specific" style="display: none;">
     <div class="panel-heading">
-        <h3 class="panel-title">What's more important for you?</h3>
+        <h3 class="panel-title">Select one option</h3>
     </div>
     <div class="panel-body">
         <div id="sp4" class="bs-example" data-example-id="simple-list-group" style="display: none;">
@@ -88,8 +88,6 @@
     var divSpecific2 = divSpecific2 = document.getElementById('sp4');
 
     function showSpecificData(index) {
-        var showOptions = true;
-
         switch(index) {
             case 0:
                 setDiv('sp4');
@@ -121,11 +119,8 @@
             default:
                 // Do nothing.
         }
-
-        if (showOptions) {
-            divGeneral.style.display = 'none';
-            divSpecific.style.display = 'block';
-        }
+        divGeneral.style.display = 'none';
+        divSpecific.style.display = 'block';
     }
 
     function setDiv(a) {

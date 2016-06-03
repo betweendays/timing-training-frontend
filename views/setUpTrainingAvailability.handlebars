@@ -8,7 +8,7 @@
         <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" >
             <ul class="list-group">
                 {{#each objectives}}
-                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{daysWeek}}</a>
+                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{daysWeek}} days</a>
                 {{/each}}
             </ul>
         </div>
@@ -20,46 +20,40 @@
 
 <div class="panel panel-default" id="specific" style="display: none;">
     <div class="panel-heading">
-        <h3 class="panel-title">What's more important for you?</h3>
+        <h3 class="panel-title">Select one option</h3>
     </div>
     <div class="panel-body">
 
-        <!-- One Day Specific Div-->
         <div id="spOne" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each oneDay}}
                 <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!-- Two Days Specific Div-->
         <div id="spTwo" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each twoDays}}
                 <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!--Shape Specific Div-->
         <div id="spThree" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each threeDays}}
                 <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!--Improve Specific Div-->
         <div id="spFour" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each fourDays}}
                 <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!--Endurance Specific Div-->
         <div id="spFive" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each fiveDays}}
                 <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!--Sports Specific Div-->
         <div id="spSix" class="bs-example" data-example-id="simple-list-group" style="display: none;">
             {{#each sixDays}}
                 <a class="list-group-item">{{name}}</a>
@@ -77,8 +71,6 @@
     var divSpecific2 = divSpecific2 = document.getElementById('spOne');
 
     function showSpecificData(index) {
-        var showOptions = true;
-
         switch(index) {
             case 0:
                 setDiv('spOne');
@@ -101,11 +93,8 @@
             default:
                 // Do nothing.
         }
-
-        if (showOptions) {
-            divGeneral.style.display = 'none';
-            divSpecific.style.display = 'block';
-        }
+        divGeneral.style.display = 'none';
+        divSpecific.style.display = 'block';
     }
 
     function setDiv(a) {

@@ -1,0 +1,147 @@
+<div class="panel panel-default" id="general" style="display: block;" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-heading">
+        <h3 class="panel-title">Please, select favourite activity</h3>
+    </div>
+    <div class="panel-body">
+
+        <!-- Objectives List -->
+        <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" >
+            <ul class="list-group">
+                {{#each activities}}
+                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{activity}}</a>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!--Back button-->
+    </br><p><a class="btn btn-primary" href="/home" role="button">Back</a></p>
+    </div>
+</div>
+
+<div class="panel panel-default" id="specific" style="display: none;">
+    <div class="panel-heading">
+        <h3 class="panel-title">What's more important for you?</h3>
+    </div>
+    <div class="panel-body">
+        <div id="spSwim" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each swim}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spRun" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each run}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spCycle" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each cycle}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spLift" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each lift}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spCardio" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each cardio}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spFunctional" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each functional}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spHome" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each home}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spOutdoors" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each outdoors}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spNoCardio" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each noCardio}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <div id="spNoLift" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each noLift}}
+                <a class="list-group-item">{{name}}</a>
+            {{/each}}
+        </div>
+
+        <!--Back button-->
+        </br><p><a class="btn btn-primary" onclick="goBack();" role="button">Back</a></p>
+    </div>
+</div>
+
+<script>
+    var divGeneral = document.getElementById('general');
+    var divSpecific = document.getElementById('specific');
+    var divSpecific2 = divSpecific2 = document.getElementById('spSwim');
+
+    function showSpecificData(index) {
+
+        switch(index) {
+            case 0:
+                setDiv('spSwim');
+                break;
+            case 1:
+                setDiv('spRun');
+                break;
+            case 2:
+                setDiv('spCycle');
+                break;
+            case 3:
+                setDiv('spLift');
+                break;
+            case 4:
+                setDiv('spCardio');
+                break;
+            case 5:
+                setDiv('spFunctional');
+                break;
+            case 6:
+                setDiv('spHome');
+                break;
+            case 7:
+                setDiv('spOutdoors');
+                break;
+            case 8:
+                setDiv('spNoCardio');
+                break;
+            case 9:
+                setDiv('spNoLift');
+                break;
+            default:
+                // Do nothing.
+        }
+        divGeneral.style.display = 'none';
+        divSpecific.style.display = 'block';
+    }
+
+    function setDiv(a) {
+        divSpecific2.style.display = 'none';
+        divSpecific2 = document.getElementById(a);
+        divSpecific2.style.display = 'block';
+    }
+
+    function goBack() {
+        divGeneral.style.display = 'block';
+        divSpecific.style.display = 'none';
+        divSpecific2.style.display = 'none';
+    }
+</script>
