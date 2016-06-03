@@ -14,6 +14,12 @@ var PATH_AUTHENTICATE = '/authenticate';
 var PATH_TRAINING_SET_UP = '/trainingSetup/';
 var PATH_GET_CRITERIA_OPTIONS = 'getCriteriaOptions';
 
+var CRITERIA_OBJECTIVE = 0;
+var CRITERIA_AVAILABILITY = 1;
+var CRITERIA_DURATION = 2;
+var CRITERIA_MATERIAL = 3;
+var CRITERIA_ACTIVITY = 4;
+
 /*********************************** PUBLIC METHODS **************************************/
 var cover = function(req, res){
 	console.log('Cover');
@@ -162,17 +168,7 @@ var trainingSetupCriteria = function(req, res) {
   			return handleErrorMessage(json.errorMsg, res);
   		}
 
-		return res.render('setUpTrainingObjective', {
-			criteriaId: json.criteria,
-			objectives: json.objectives,
-			wLose: json.objectives[0].generalPrograms,
-			toneUp: json.objectives[1].generalPrograms,
-			betterShape: json.objectives[2].generalPrograms,
-			impStrength: json.objectives[3].generalPrograms,
-			impEndurance: json.objectives[4].generalPrograms,
-			injuries: json.objectives[5].generalPrograms,
-			sport: json.objectives[6].generalPrograms,
-		});
+  		return dispatchView(res, json);
 	});
 };
 
@@ -182,6 +178,43 @@ function handleErrorMessage(data, res) {
 	// TODO: handle error
 	console.error('Error:', data);
 	return res.send(data);
+}
+
+function dispatchView(res, json) {
+	switch (json.criteria) {
+		case CRITERIA_OBJECTIVE:
+			console.log('Dispatch Objective view.');
+			return res.render('setUpTrainingObjective', {
+				criteriaId: json.criteria,
+				objectives: json.objectives,
+				wLose: json.objectives[0].generalPrograms,
+				toneUp: json.objectives[1].generalPrograms,
+				betterShape: json.objectives[2].generalPrograms,
+				impStrength: json.objectives[3].generalPrograms,
+				impEndurance: json.objectives[4].generalPrograms,
+				injuries: json.objectives[5].generalPrograms,
+				sport: json.objectives[6].generalPrograms
+			});
+		case CRITERIA_AVAILABILITY:
+			// TODO: not finished yet
+			console.log('Dispatch Availability view.');
+			return res.send('avail');
+		case CRITERIA_DURATION:
+			// TODO: not finished yet
+			console.log('Dispatch Duration view.');
+			return res.send('duration');
+		case CRITERIA_MATERIAL:
+			// TODO: not finished yet
+			console.log('Dispatch Material view.');
+			return res.send('material');
+		case CRITERIA_ACTIVITY:
+			// TODO: not finished yet
+			console.log('Dispatch Activity view.');
+			return res.send('activity');
+		default:
+			console.log('Criteria Unknown.');
+			return handleErrorMessage('Criteria Unknown', res);
+	}
 }
 /*********************************** EXPORTS **************************************/
 exports.cover = cover;
