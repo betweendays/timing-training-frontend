@@ -1,6 +1,6 @@
 <div class="panel panel-default" id="general" style="display: block;" xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
-        <h3 class="panel-title">Please, select your main objective</h3>
+        <h3 class="panel-title">Please, select days per week you are available</h3>
     </div>
     <div class="panel-body">
 
@@ -8,7 +8,7 @@
         <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" >
             <ul class="list-group">
                 {{#each objectives}}
-                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{objective}}</a>
+                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{daysWeek}}</a>
                 {{/each}}
             </ul>
         </div>
@@ -24,45 +24,45 @@
     </div>
     <div class="panel-body">
 
-        <!--Lose Weight Specific Div-->
-        <div id="spLose" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each wLose}}
-                <a class="list-group-item">{{option}}</a>
+        <!-- One Day Specific Div-->
+        <div id="spOne" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each oneDay}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
-        <!--Tone Up Specific Div-->
-        <div id="spTone" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each toneUp}}
-                <a class="list-group-item">{{option}}</a>
+        <!-- Two Days Specific Div-->
+        <div id="spTwo" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each twoDays}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
         <!--Shape Specific Div-->
-        <div id="spShape" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each betterShape}}
-                <a class="list-group-item">{{option}}</a>
+        <div id="spThree" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each threeDays}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
         <!--Improve Specific Div-->
-        <div id="spStrength" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each impStrength}}
-                <a class="list-group-item">{{option}}</a>
+        <div id="spFour" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fourDays}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
         <!--Endurance Specific Div-->
-        <div id="spEndurance" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each impEndurance}}
-                <a class="list-group-item">{{option}}</a>
+        <div id="spFive" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fiveDays}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
         <!--Sports Specific Div-->
-        <div id="spSports" class="bs-example" data-example-id="simple-list-group" style="display: none;">
-            {{#each sport}}
-                <a class="list-group-item">{{option}}</a>
+        <div id="spSix" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each sixDays}}
+                <a class="list-group-item">{{name}}</a>
             {{/each}}
         </div>
 
@@ -74,32 +74,29 @@
 <script>
     var divGeneral = document.getElementById('general');
     var divSpecific = document.getElementById('specific');
-    var divSpecific2 = divSpecific2 = document.getElementById('spLose');
+    var divSpecific2 = divSpecific2 = document.getElementById('spOne');
 
     function showSpecificData(index) {
         var showOptions = true;
 
         switch(index) {
             case 0:
-                setDiv('spLose');
+                setDiv('spOne');
                 break;
             case 1:
-                setDiv('spTone');
+                setDiv('spTwo');
                 break;
             case 2:
-                setDiv('spShape');
+                setDiv('spThree');
                 break;
             case 3:
-                setDiv('spStrength');
+                setDiv('spFour');
                 break;
             case 4:
-                setDiv('spEndurance');
+                setDiv('spFive');
                 break;
             case 5:
-                showOptions = false;
-                break;
-            case 6:
-                setDiv('spSports');
+                setDiv('spSix');
                 break;
             default:
                 // Do nothing.

@@ -197,8 +197,17 @@ function dispatchView(res, json) {
 			});
 		case CRITERIA_AVAILABILITY:
 			// TODO: not finished yet
-			console.log('Dispatch Availability view.');
-			return res.send('avail');
+			console.log('Dispatch Availability view: ' + json.objectives[0].daysWeek);
+			return res.render('setUpTrainingAvailability', {
+				criteriaId: json.criteria,
+				objectives: json.objectives,
+				oneDay: json.objectives[0].programs,
+				twoDays: json.objectives[1].programs,
+				threeDays: json.objectives[2].programs,
+				fourDays: json.objectives[3].programs,
+				fiveDays: json.objectives[4].programs,
+				sixDays: json.objectives[5].programs,
+			});
 		case CRITERIA_DURATION:
 			// TODO: not finished yet
 			console.log('Dispatch Duration view.');
