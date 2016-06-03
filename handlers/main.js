@@ -183,7 +183,6 @@ function handleErrorMessage(data, res) {
 function dispatchView(res, json) {
 	switch (json.criteria) {
 		case CRITERIA_OBJECTIVE:
-			console.log('Dispatch Objective view.');
 			return res.render('setUpTrainingObjective', {
 				criteriaId: json.criteria,
 				objectives: json.objectives,
@@ -196,8 +195,6 @@ function dispatchView(res, json) {
 				sport: json.objectives[6].generalPrograms
 			});
 		case CRITERIA_AVAILABILITY:
-			// TODO: not finished yet
-			console.log('Dispatch Availability view: ' + json.objectives[0].daysWeek);
 			return res.render('setUpTrainingAvailability', {
 				criteriaId: json.criteria,
 				objectives: json.objectives,
@@ -209,9 +206,20 @@ function dispatchView(res, json) {
 				sixDays: json.objectives[5].programs,
 			});
 		case CRITERIA_DURATION:
-			// TODO: not finished yet
 			console.log('Dispatch Duration view.');
-			return res.send('duration');
+			return res.render('setUpTrainingDuration', {
+				criteriaId: json.criteria,
+				objectives: json.objectives,
+				fourW: json.objectives[0].programs,
+				fiveW: json.objectives[1].programs,
+				sixW: json.objectives[2].programs,
+				eigthW: json.objectives[3].programs,
+				tenW: json.objectives[4].programs,
+				twelveW: json.objectives[5].programs,
+				fourteenW: json.objectives[6].programs,
+				fifteenW: json.objectives[7].programs,
+				sixteenW: json.objectives[8].programs
+			});
 		case CRITERIA_MATERIAL:
 			// TODO: not finished yet
 			console.log('Dispatch Material view.');
