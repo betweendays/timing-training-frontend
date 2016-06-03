@@ -1,0 +1,142 @@
+<div class="panel panel-default" id="general" style="display: block;" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-heading">
+        <h3 class="panel-title">Please, select your available material</h3>
+    </div>
+    <div class="panel-body">
+
+        <!-- Objectives List -->
+        <div id="objectiveList" class="bs-example" data-example-id="simple-list-group" >
+            <ul class="list-group">
+                {{#each material}}
+                    <a class="list-group-item" onclick="showSpecificData({{@index}});">{{this}}</a>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!--Back button-->
+    </br><p><a class="btn btn-primary" href="/home" role="button">Back</a></p>
+    </div>
+</div>
+
+<div class="panel panel-default" id="specific" style="display: none;">
+    <div class="panel-heading">
+        <h3 class="panel-title">What's more important for you?</h3>
+    </div>
+    <div class="panel-body">
+        <div id="sp4" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fourW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp5" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fiveW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp6" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each sixW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp8" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each eigthW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp10" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each tenW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp12" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each twelveW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp14" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fourteenW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp15" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each fifteenW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <div id="sp16" class="bs-example" data-example-id="simple-list-group" style="display: none;">
+            {{#each sixteenW}}
+                <a class="list-group-item">{{generalProgram}}</a>
+            {{/each}}
+        </div>
+
+        <!--Back button-->
+        </br><p><a class="btn btn-primary" onclick="goBack();" role="button">Back</a></p>
+    </div>
+</div>
+
+<script>
+    var divGeneral = document.getElementById('general');
+    var divSpecific = document.getElementById('specific');
+    var divSpecific2 = divSpecific2 = document.getElementById('sp4');
+
+    function showSpecificData(index) {
+        var showOptions = true;
+
+        switch(index) {
+            case 0:
+                setDiv('sp4');
+                break;
+            case 1:
+                setDiv('sp5');
+                break;
+            case 2:
+                setDiv('sp6');
+                break;
+            case 3:
+                setDiv('sp8');
+                break;
+            case 4:
+                setDiv('sp10');
+                break;
+            case 5:
+                setDiv('sp12');
+                break;
+            case 6:
+                setDiv('sp14');
+                break;
+            case 7:
+                setDiv('sp15');
+                break;
+            case 8:
+                setDiv('sp16');
+                break;
+            default:
+                // Do nothing.
+        }
+
+        if (showOptions) {
+            divGeneral.style.display = 'none';
+            divSpecific.style.display = 'block';
+        }
+    }
+
+    function setDiv(a) {
+        divSpecific2.style.display = 'none';
+        divSpecific2 = document.getElementById(a);
+        divSpecific2.style.display = 'block';
+    }
+
+    function goBack() {
+        divGeneral.style.display = 'block';
+        divSpecific.style.display = 'none';
+        divSpecific2.style.display = 'none';
+    }
+</script>

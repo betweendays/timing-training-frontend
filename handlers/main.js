@@ -206,7 +206,6 @@ function dispatchView(res, json) {
 				sixDays: json.objectives[5].programs,
 			});
 		case CRITERIA_DURATION:
-			console.log('Dispatch Duration view.');
 			return res.render('setUpTrainingDuration', {
 				criteriaId: json.criteria,
 				objectives: json.objectives,
@@ -221,9 +220,10 @@ function dispatchView(res, json) {
 				sixteenW: json.objectives[8].programs
 			});
 		case CRITERIA_MATERIAL:
-			// TODO: not finished yet
-			console.log('Dispatch Material view.');
-			return res.send('material');
+			return res.render('setUpTrainingMaterial', {
+				criteriaId: json.criteria,
+				material: json.material
+			});
 		case CRITERIA_ACTIVITY:
 			// TODO: not finished yet
 			console.log('Dispatch Activity view.');
