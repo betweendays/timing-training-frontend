@@ -30,5 +30,10 @@ var dispatch = function(res, json) {
 	}
 };
 
+var dispatch2 = function(res, json) {
+	return res.render('setUpTraining/trainingWeigthLoss', JSONHelper.getWeigthLossJson(json));
+};
+
 /*********************************** EXPORTS **************************************/
 exports.dispatch = dispatch;
+exports.dispatch2 = dispatch2;

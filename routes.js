@@ -24,4 +24,6 @@ module.exports = function(app){
 	
 	// Training routes
 	app.get('/trainingSetupCriteria/:id', training.setUpCriteria);
+	app.get('/trainingSetup/setProgramOptions/:programId/:criteriaId', training.setProgramOptions);
+	app.get('/trainingSetup/setSpecificOptions/:questionId/:optionId', training.setSpecificOptions);
 };

@@ -95,6 +95,20 @@ var getSetUpTrainingJson = function(data) {
 	};
 };
 
+var getSetProgramOptionsJson = function(data) {
+	return {
+		sessionId: data.session.sessionId,
+		criteria: data.params.criteriaId,
+		programId: data.params.programId
+	};
+};
+
+var getWeigthLossJson = function(data) {
+	return {
+		question: data.question.value,
+		options: data.question.option
+	};
+};
 /*********************************** EXPORTS **************************************/
 
 exports.createJsonLogin = createJsonLogin;
@@ -105,3 +119,5 @@ exports.getDurationJson = getDurationJson;
 exports.getMaterialJson = getMaterialJson;
 exports.getActivityJson = getActivityJson;
 exports.getSetUpTrainingJson = getSetUpTrainingJson;
+exports.getSetProgramOptionsJson = getSetProgramOptionsJson;
+exports.getWeigthLossJson = getWeigthLossJson;
