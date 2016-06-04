@@ -125,4 +125,3 @@ exports.processLoginPost = processLoginPost;
 exports.processRegisterPost = processRegisterPost;
 exports.home = home;
 exports.logout = logout;
-exports.trainingSetupCriteria = trainingSetupCriteria;
