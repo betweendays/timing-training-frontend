@@ -63,10 +63,15 @@ var register = function(req, res) {
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
 		console.log('Response: ' + body);
-
+		
 		if (err) {
-			console.log('Error Login: ' + req);
+			console.log('Error Register: ' + req);
 			return handleErrorMessage(err, res);
+		}
+
+		if (body.length <= 0) {
+			console.log('Register OK');
+  			return login(req, res);
 		}
 
 		var json;
@@ -79,9 +84,6 @@ var register = function(req, res) {
   		if (Response.responseHasErrors(json)) {
   			return handleErrorMessage(json.errorMsg, res);
   		}
-
-  		console.log('Register OK');
-  		return login(req, res);
 	});
 };
 
