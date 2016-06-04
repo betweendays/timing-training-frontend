@@ -3,8 +3,6 @@
 var request = require('request'),
 	Response = require('./Response.js'),
 	JSONHelper = require('./JSONHelper.js'),
-	Session = require('./Session.js'),
-	Training = require('./TrainingSetUp.js'),
 	ViewDispatcher = require('./CriteriaViewDispatcher.js');
 
 /*********************************** CONSTANTS *******************************************/
