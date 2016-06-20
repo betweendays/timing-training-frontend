@@ -1,7 +1,6 @@
 var http = require('http'),
     express = require('express'),
-    credentials = require('./credentials.js'),
-    session = require('client-sessions');
+    credentials = require('./credentials.js');
 
 var app = express();
 
