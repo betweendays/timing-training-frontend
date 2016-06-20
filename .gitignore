@@ -6,3 +6,5 @@ node_modules
 
 # backup files will be ignored even if they are in subdirectories.
 *~
+
+.vscode/launch.json
