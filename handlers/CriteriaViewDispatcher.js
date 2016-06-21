@@ -12,7 +12,7 @@ var CRITERIA_ACTIVITY = 4;
 
 /*********************************** PUBLIC METHODS **************************************/
 
-var dispatch = function(res, json) {
+function dispatchByCriteria(res, json) {
 	switch (json.criteria) {
 		case CRITERIA_OBJECTIVE:
 			return res.render('setUpTraining/setUpTrainingObjective', JSONHelper.getObjectiveJson(json));
@@ -25,15 +25,10 @@ var dispatch = function(res, json) {
 		case CRITERIA_ACTIVITY:
 			return res.render('setUpTraining/setUpTrainingActivity', JSONHelper.getActivityJson(json));
 		default:
-			console.log('Criteria Unknown.');
 			return handleErrorMessage('Criteria Unknown', res);
 	}
 };
 
-var dispatch2 = function(res, json) {
-	return res.render('setUpTraining/trainingWeigthLoss', JSONHelper.getWeigthLossJson(json));
-};
-
 /*********************************** EXPORTS **************************************/
-exports.dispatch = dispatch;
-exports.dispatch2 = dispatch2;
+
+module.exports.dispatchByCriteria = dispatchByCriteria;

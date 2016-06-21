@@ -12,15 +12,14 @@ var PATH_REGISTER = '/register';
 var PATH_AUTHENTICATE = '/authenticate';
 var PATH_TRAINING_SET_UP = '/trainingSetup/';
 var PATH_GET_CRITERIA_OPTIONS = 'getCriteriaOptions';
-var PATH_SET_PROGRAM_OPTIONS = "/trainingSetup/setProgramOptions";
+var PATH_SET_PROGRAM_OPTIONS = '/trainingSetup/setProgramOptions';
+var PATH_SET_PROGRAM_SPECIFIC_OPTIONS ='/trainingSetup/setSpecificOptions';
 
 /*********************************** PUBLIC METHODS **************************************/
 
-var setUp = function(req, res) {
+function setUp(req, res) {
 	var url = BACK_END_SERVER_URL_BASE + PATH_TRAINING_SET_UP + req.session.sessionId;
-	request.get(url, function optionalCallback(err, httpResponse, body) {
-		console.log('Response: ' + body);
-
+	request.get(url, function(err, httpResponse, body) {
 		if (err) {
 			console.log('Error Home Page: ' + err);
 			return handleErrorMessage(err, res);
@@ -41,20 +40,19 @@ var setUp = function(req, res) {
   			return handleErrorMessage(json.errorMsg, res);
   		}
 
-		return res.render('setUpTraining/setUpTraining', JSONHelper.getSetUpTrainingJson(json));
+		// show set up training generic view
+		var dataToBeShown = JSONHelper.getSetUpTrainingJson(json);
+		return res.render('setUpTraining/setUpTraining', dataToBeShown);
 	});
 };
 
-var setUpCriteria = function(req, res) {
+function setUpCriteria(req, res) {
 	var id = req.params.id;
 	var sessionId = req.session.sessionId;
 
 	var url = BACK_END_SERVER_URL_BASE + PATH_TRAINING_SET_UP + PATH_GET_CRITERIA_OPTIONS + '/' + sessionId + '/' + id;
 	request.get(url, function optionalCallback(err, httpResponse, body) {
-		console.log('Response: ' + body);
-
 		if (err) {
-			console.log('Error Home Page: ' + err);
 			return handleErrorMessage(err, res);
 		}
 
@@ -62,7 +60,6 @@ var setUpCriteria = function(req, res) {
 		try {
 			json = JSON.parse(body);
 		} catch(e) {
-			console.log(e);
 			return handleErrorMessage('Internal Error', res);
 		}
 
@@ -72,14 +69,14 @@ var setUpCriteria = function(req, res) {
 			}
   			return handleErrorMessage(json.errorMsg, res);
   		}
-
-  		return ViewDispatcher.dispatch(res, json);
+		
+		// show set up a training according to the selected criteria
+  		return ViewDispatcher.dispatchByCriteria(res, json);
 	});
 };
 
-var setProgramOptions = function(req, res) {
+function setProgramOptions(req, res) {
 	var jsonData = JSONHelper.getSetProgramOptionsJson(req);
-	console.log("JSON: " + JSON.stringify(jsonData)); 
 
 	var requestOptions = {
 		url: BACK_END_SERVER_URL_BASE + PATH_SET_PROGRAM_OPTIONS,
@@ -87,10 +84,7 @@ var setProgramOptions = function(req, res) {
 	};
 
 	request.post(requestOptions, function optionalCallback(err, httpResponse, body) {
-		console.log('Response: ' + body);
-
 		if (err) {
-			console.log('Error: ' + req);
 			return handleErrorMessage(err, res);
 		}
 
@@ -104,28 +98,63 @@ var setProgramOptions = function(req, res) {
   		if (Response.responseHasErrors(json)) {
   			return handleErrorMessage(json.errorMsg, res);
   		}
-  
-  		return ViewDispatcher.dispatch2(res, json);
+
+		req.session.criteriaId = jsonData.criteria;
+		
+  		return res.render('setUpTraining/trainingOptions', json);
 	});
 };
 
-var setSpecificOptions = function(req, res) {
-	var questionId = req.params.questionId;
-	var optionId = req.params.optionId;
+function setSpecificOptions(req, res) {
+	if (!req.session.sessionId) {
+		return handleErrorMessage('Invalid Session Id', res);
+	}
 
-	res.send('TODO: Not Finished! QuestionId: ' + questionId + ", optionId: " + optionId);
+	var jsonData = JSONHelper.getSpecificOptionsJson(req);
+
+	var requestOptions = {
+		url: BACK_END_SERVER_URL_BASE + PATH_SET_PROGRAM_SPECIFIC_OPTIONS,
+		formData: jsonData
+	};
+
+	request.post(requestOptions, function(err, httpResponse, body) {
+		if (err) {
+			return handleErrorMessage(err, res);
+		}
+
+		if (responseIsEmpty(body)) {
+			// TODO: define what to do when user already have a training
+			return res.send('Done!!!');
+		}
+
+  		var json;
+  		try {
+  			json = JSON.parse(body);
+  		} catch(e) {
+  			return handleErrorMessage('Error handling data.', res);
+  		}
+
+  		if (Response.responseHasErrors(json)) {
+  			return handleErrorMessage(json.errorMsg, res);
+  		}
+
+		return res.render('setUpTraining/trainingOptions', json);
+	});
 };
 /*********************************** PRIVATE METHODS **************************************/
 
+function responseIsEmpty(response) {
+	return response.length <= 0;
+}
+
 function handleErrorMessage(data, res) {
-	// TODO: handle error
-	console.error('Error:', data);
+	console.error('Error: ', data.red);
 	return res.send(data);
 }
 
 /*********************************** EXPORTS **************************************/
 
-exports.setUp = setUp;
-exports.setUpCriteria = setUpCriteria;
-exports.setProgramOptions = setProgramOptions;
-exports.setSpecificOptions = setSpecificOptions;
+module.exports.setUp = setUp;
+module.exports.setUpCriteria = setUpCriteria;
+module.exports.setProgramOptions = setProgramOptions;
+module.exports.setSpecificOptions = setSpecificOptions;

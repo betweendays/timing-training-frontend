@@ -1,13 +1,13 @@
 /*********************************** PUBLIC METHODS **************************************/
 
-var createJsonLogin = function(req) {
+function createJsonLogin(req) {
 	return {
 		email: req.body.email,
 		password: req.body.password
 	};
-};
+}
 
- var createJson = function(req) {
+ function createJson(req) {
 	return {
 		name: req.body.name,
 		email: req.body.email,
@@ -17,9 +17,9 @@ var createJsonLogin = function(req) {
 		birthday: req.body.birthday,
 		gender: req.body.gender
 	};
-};
+}
 
-var getObjectiveJson = function(data) {
+function getObjectiveJson(data) {
 	return {
 		criteriaId: data.criteria,
 		objectives: data.objectives,
@@ -31,9 +31,9 @@ var getObjectiveJson = function(data) {
 		injuries: data.objectives[5].generalPrograms,
 		sport: data.objectives[6].generalPrograms
 	};
-};
+}
 
-var getAvailabilityJson = function(data) {
+function getAvailabilityJson(data) {
 	return {
 		criteriaId: data.criteria,
 		objectives: data.objectives,
@@ -44,9 +44,9 @@ var getAvailabilityJson = function(data) {
 		fiveDays: data.objectives[4].programs,
 		sixDays: data.objectives[5].programs
 	};
-};
+}
 
-var getDurationJson = function(data) {
+function getDurationJson(data) {
 	return {
 		criteriaId: data.criteria,
 		objectives: data.objectives,
@@ -60,16 +60,16 @@ var getDurationJson = function(data) {
 		fifteenW: data.objectives[7].programs,
 		sixteenW: data.objectives[8].programs
 	};
-};
+}
 
-var getMaterialJson = function(data) {
+function  getMaterialJson(data) {
 	return {
 		criteriaId: data.criteria,
 		material: data.material
 	};
-};
+}
 
-var getActivityJson = function(data) {
+function  getActivityJson(data) {
 	return {
 		criteriaId: data.criteria,
 		activities: data.activities,
@@ -84,40 +84,52 @@ var getActivityJson = function(data) {
 		noCardio: data.activities[8].programs,
 		noLift: data.activities[9].programs
 	};
-};
+}
 
-var getSetUpTrainingJson = function(data) {
+function getSetUpTrainingJson(data) {
 	return {
 		criterias: data.criterias,
 		cWellness: data.categories[0].wellness,
 		cFitness: data.categories[1].fitness,
 		cSports: data.categories[2].sport
 	};
-};
+}
 
-var getSetProgramOptionsJson = function(data) {
+function  getSetProgramOptionsJson(data) {
 	return {
 		sessionId: data.session.sessionId,
 		criteria: data.params.criteriaId,
 		programId: data.params.programId
 	};
-};
+}
 
-var getWeigthLossJson = function(data) {
+function getTrainingOptionsJson(data) {
 	return {
+		questionId: data.question.questionId,
 		question: data.question.value,
 		options: data.question.option
 	};
-};
+}
+
+function getSpecificOptionsJson(data) {
+	return {
+		sessionId: data.session.sessionId,
+		questionId: data.params.questionId,
+		criteria: data.session.criteriaId,
+		options: data.params.optionId
+	};
+}
+
 /*********************************** EXPORTS **************************************/
 
-exports.createJsonLogin = createJsonLogin;
-exports.createJson = createJson;
-exports.getObjectiveJson = getObjectiveJson;
-exports.getAvailabilityJson = getAvailabilityJson;
-exports.getDurationJson = getDurationJson;
-exports.getMaterialJson = getMaterialJson;
-exports.getActivityJson = getActivityJson;
-exports.getSetUpTrainingJson = getSetUpTrainingJson;
-exports.getSetProgramOptionsJson = getSetProgramOptionsJson;
-exports.getWeigthLossJson = getWeigthLossJson;
+module.exports.createJsonLogin = createJsonLogin;
+module.exports.createJson = createJson;
+module.exports.getObjectiveJson = getObjectiveJson;
+module.exports.getAvailabilityJson = getAvailabilityJson;
+module.exports.getDurationJson = getDurationJson;
+module.exports.getMaterialJson = getMaterialJson;
+module.exports.getActivityJson = getActivityJson;
+module.exports.getSetUpTrainingJson = getSetUpTrainingJson;
+module.exports.getSetProgramOptionsJson = getSetProgramOptionsJson;
+module.exports.getTrainingOptionsJson = getTrainingOptionsJson;
+module.exports.getSpecificOptionsJson = getSpecificOptionsJson;
